@@ -6,7 +6,7 @@ const WooCommerceRestApi = require("@woocommerce/woocommerce-rest-api").default;
 
 
 const app = express();
-const PORT = process.env.PORT; 
+const PORT = process.env.PORT || 8080; 
 
 
 
@@ -27,6 +27,10 @@ const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API,});
 app.get('/ai-details', async (req, res) => {
 
   const userInput = req.query.data
+
+
+
+  try {
 
 
   const WooCommerce = new WooCommerceRestApi({
@@ -53,8 +57,8 @@ app.get('/ai-details', async (req, res) => {
 
                })
                .catch((error) => {
-                console.log("========================")
-                 console.log(error.response?.data);
+                 // console.log(error.response?.data);
+                 return res.status(500).json({ message: "WooCommerce API error" });
                });
 
 
@@ -294,6 +298,10 @@ app.get('/ai-details', async (req, res) => {
 
 
 
+  }
+  } catch (err) {
+    // console.error("Server Error:", err);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 
     
