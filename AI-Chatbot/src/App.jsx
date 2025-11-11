@@ -25,7 +25,7 @@ function App() {
 
 
 
-    const response = await axios.get("http://localhost:8000/ai-details",
+    const response = await axios.get("https://chatbot-backend-stmt.onrender.com/ai-details",
                                      {
                                       params: {
                                       data: input,
