@@ -16,6 +16,11 @@ app.use(cors({
               credentials: true, 
         }));
 
+app.options('*', cors()); // handle preflight
+
+app.use(express.json());
+
+
  
 
 const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API,});
